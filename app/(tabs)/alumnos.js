@@ -1,6 +1,6 @@
 import { FlatList } from "react-native";
 import { useEffect, useState } from "react";
-import {List, TouchableRipple, TextInput, Text} from 'react-native-paper';
+import {List, TextInput, Text} from 'react-native-paper';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 
@@ -9,13 +9,14 @@ export default function Alumnos(){
   const [alumnos, setAlumnos] = useState([]);
   const [filtro, setFiltro] = useState("");
   
+  //utilizar un boton para ordenar los elementos de los alumnos
   const alumnosFiltrados = alumnos.filter(
     (alumno) => alumno.nombre.toLowerCase().includes(filtro.toLowerCase()) || alumno.matricula.startsWith(filtro)
   );
 
-    useEffect(()=> {
-      setTimeout(()=>{
-        setAlumnos([{
+  useEffect(()=> {
+    setTimeout(()=>{
+      setAlumnos([{
           
           nombre: 'CANDELARIA MORA SAMANTHA',
           
@@ -294,11 +295,8 @@ export default function Alumnos(){
           matricula: '2025218'
           
         }
-      ])
-      
+      ]) 
     }, 2000)
-    
-    
   }, []);
 
   if(!alumnos.length){
