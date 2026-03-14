@@ -1,18 +1,32 @@
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
-import {List, TextInput, Text} from 'react-native-paper';
+import {List, TextInput, Text, Button} from 'react-native-paper';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
+function getNuevoOrden(orden) {
+  if(orden === 0) {
+    return 1;
+  }
+  return -orden;
+}
 
 export default function Alumnos(){
   
   const [alumnos, setAlumnos] = useState([]);
   const [filtro, setFiltro] = useState("");
+  const [orden, setOrden] = useState(0);
   
   //utilizar un boton para ordenar los elementos de los alumnos
   const alumnosFiltrados = alumnos.filter(
     (alumno) => alumno.nombre.toLowerCase().includes(filtro.toLowerCase()) || alumno.matricula.startsWith(filtro)
   );
+
+  if(orden !== 0) {
+    alumnosFiltrados.sort();
+    if(orden === -1) {
+      alumnosFiltrados.reverse();
+    }
+  }
 
   useEffect(()=> {
     setTimeout(()=>{
@@ -324,6 +338,19 @@ export default function Alumnos(){
       renderItem={({ item }) => (
       <List.Item title={item.nombre} description={item.matricula} left={props => <MaterialIcons name="account-circle" size={40}></MaterialIcons>}></List.Item>
     )}/>
+    <Button
+      style={{backgroundColor: "#656565"}}
+      onPress={()=>{setOrden(getNuevoOrden(orden))}}
+    >
+      <Text style={{color: "white"}}>Ordenar</Text>
+    </Button>
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "black",
+    color: "red"
+  }
+});
