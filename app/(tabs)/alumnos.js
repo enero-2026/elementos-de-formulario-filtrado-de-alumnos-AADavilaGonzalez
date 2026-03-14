@@ -10,7 +10,7 @@ export default function Alumnos(){
   const [filtro, setFiltro] = useState("");
   
   const alumnosFiltrados = alumnos.filter(
-    (alumno) => alumno.nombre.toLowerCase().includes(filtro.toLowerCase()) || alumno.matricula.includes(filtro)
+    (alumno) => alumno.nombre.toLowerCase().includes(filtro.toLowerCase()) || alumno.matricula.startsWith(filtro)
   );
 
     useEffect(()=> {
